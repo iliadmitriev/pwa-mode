@@ -1,8 +1,21 @@
+const DATA_URL = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
+
 window.addEventListener('load', async () => {
+
+    if ('serviceWorker' in navigator) {
+        try {
+            const reg = await navigator.serviceWorker.register('/sw.js')
+            console.log('Registered service worker', reg)
+        } catch (e) {
+            console.log('Could not register service worker', e)
+        }
+    } else {
+        console.log('serviceWorker is not supported by your browser')
+    }
+
     await loadPosts()
 })
 
-    const DATA_URL = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
 
 const toCard = (post) => `
 <div class="card">
